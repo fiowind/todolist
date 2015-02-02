@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"  ng-app>
+
+<head>
+    <meta charset="UTF-8">
+    <title>angular todo</title>
+    <link rel="stylesheet" type="text/css" href="static/main.css">
+</head>
+
+<body>
+
+    <div>
+        <div id="todoapp" ng-controller="TodoCtrl">
+            <header>
+                <h1>Todos by Angular.js</h1>
+                <input id="new-todo" type="text" ng-model="todoText" size="30" placeholder="Text todo" ng-keyup="addTodo()" />
+            </header>
+
+            <section id="main" style="display: block;">
+                <div ng-show="isTodo()">
+                    <input id="toggle-all" type="checkbox" ng-model="markAll" ng-click="toggleMarkAll()" />
+                    <label for="toggle-all">Mark all as complete</label>
+                </div>
+
+                <ul id="todo-list" class="unstyled">
+                    <li ng-repeat="todo in todos" ng-dblclick="toggleEditMode()">
+                        <div class="view" ng-keyup="editTodo()">
+                            <input type="checkbox" ng-model="todo.done" />
+                            <span class="done-{{todo.done}}">{{todo.text}}</span>
+                        </div>
+                        <input class="edit" type="text" ng-model="todo.text" ng-keyup="editOnEnter(todo)" />
+                    </li>
+                </ul>
+            </section>
+
+            <footer style="display: block;">
+                <div class="todo-count">{{remaining()}} of {{todos.length}} remaining</div>
+                <a id="clear-completed" ng-click="clear()" ng-show="hasDone()">
+              Clear <span >{{(todos.length - remaining())}} {{itemText()}}</span>.
+          </a>
+            </footer>
+            <script src="static/angular.min.js"></script>
+            <script src="static/angular_example.js"></script>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
